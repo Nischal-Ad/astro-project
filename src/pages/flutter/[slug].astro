@@ -1,0 +1,54 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from '../../layouts/Layout.astro';
+import Main from '../../layouts/Main.astro';
+import { type CollectionEntry, getCollection } from 'astro:content';
+import { Image } from "astro:assets";
+
+export const  getStaticPaths  = async()=>{
+ const posts = await getCollection('html');
+ const paths = posts.map((post) => {
+  return {
+    params: {
+      slug: post.slug,
+    },
+    props:{
+      post,
+      params:post.slug
+    
+    },
+  };
+ })
+ return paths
+}
+
+
+type Props = {
+ post:CollectionEntry<"html">
+ params: string
+}
+
+const {post,params} = Astro.props;
+const {Content} = await post.render();
+
+console.log(params);
+
+
+---
+
+<Layout title="blogs">
+	<Main>
+    <div class="grid grid-cols-4 gap-4">
+  <div>01</div>
+  <!-- ... -->
+  <div>09</div>
+</div>
+
+  <div class="prose prose-2xl overflow-visible relative mb-20">
+ 
+   <Content/>
+  </div>
+
+	</Main>
+</Layout>
+

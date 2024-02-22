@@ -1,0 +1,38 @@
+---
+import {Image} from "astro:assets"
+import { getCollection } from "astro:content";
+
+const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
+
+	const posts = await getCollection('html');
+
+    console.log(posts);
+
+       const html = posts.find(post => post.data.index === 1);
+       const flutter = posts.find(post => post.data.index === 1);
+    
+---
+
+
+
+<header
+
+>
+    <a href="/" class="flex justify-center items-center py-4 bg-green-200 w-[100dvw]">
+        <Image
+            src="https://media.istockphoto.com/id/469532554/photo/bahakapur-nepal.jpg?s=612x612&w=0&k=20&c=9RHmLtdaPTJdtzpz86DQDW98X-WrT5FaUdas6mXKEHM="
+            alt="rhythm nation logo"
+            width={64}
+            height={64}
+            format="webp"
+            class="w-16"
+        />
+
+        <p class="uppercase text-3xl text-zinc-900">blog</p>
+    </a>
+    <nav class="flex items-center justify-evenly space-x-14 my-2 py-3 bg-red-400 overflow-auto px-4">
+                      <a href={`/html/${html?.slug}`} class={`text-custom-black  px-8 rounded-sm font-bold py-1 ${url === 'html' && 'bg-gray-300 font-extrabold' }`}>HTML1</a>
+               <a href={`/flutter/${flutter?.slug}`} class={`text-custom-black  px-8 rounded-sm font-bold py-1 ${url === 'flutter' && 'bg-gray-300 font-extrabold' }`}>Flutter</a>    
+       
+    </nav>
+</header>

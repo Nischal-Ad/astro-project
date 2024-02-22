@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import Main from '../../layouts/Main.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection("html");
+---
+
+<Layout title="html">
+	<Main>
+   <div class="grid grid-cols-3 gap-4">
+
+this is flutter page
+</div>
+	</Main>
+</Layout>
+

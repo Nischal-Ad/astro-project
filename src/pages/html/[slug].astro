@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import Main from '../../layouts/Main.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+
+	const posts = await getCollection('html');
+
+export const getStaticPaths = async ()=>{
+
+	const posts = await getCollection('html');
+
+	const paths = posts.map((post) => {
+		return { 
+			params: { slug: post.slug },
+			props:{post,
+        slug: post.slug,
+      } 
+		}});
+		return paths;
+}
+
+type Props = {
+	post: CollectionEntry<"html">
+  slug:string
+}
+
+	const {post, slug} = Astro.props;
+	const {Content} = await post.render();
+  
+
+---
+
+<Layout title={`${post.slug} - ${post.collection}`}>
+	<Main>
+		<div class='grid grid-cols-12 gap-2'>
+			<div class='lg:col-span-3 md:col-span-3 bg-gray-500 rounded-md'>
+{posts.sort((a, b) => a.data.index - b.data.index).map((post) => {
+  return (
+ 
+  <div class="my-6">
+     <a class={` block mx-2 py-1 px-4 rounded-md font-semibold text-custom-black ${slug === post.slug && 'bg-red-200'}`} href= {`/${post.collection}/${post.slug}`}>{post.slug}</a>
+     </div>
+)
+  
+})}
+			</div>
+
+
+      <div class='lg:col-span-9 md:col-span-9 col-span-12 text-justify prose prose-2xl relative text-md'>
+     			<Content/>
+			</div>
+		</div>
+	</Main>
+</Layout>
+
