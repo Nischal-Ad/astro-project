@@ -6,7 +6,6 @@ const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
 
 	const posts = await getCollection('html');
 
-    console.log(posts);
 
        const html = posts.find(post => post.data.index === 1);
        const flutter = posts.find(post => post.data.index === 1);
@@ -15,8 +14,7 @@ const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
 
 
 
-<header
-
+<header 
 >
     <a href="/" class="flex justify-center items-center py-4 bg-green-200 w-[100dvw]">
         <Image
@@ -30,9 +28,11 @@ const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
 
         <p class="uppercase text-3xl text-zinc-900">blog</p>
     </a>
-    <nav class="flex items-center justify-evenly space-x-14 my-2 py-3 bg-red-400 overflow-auto px-4">
+       <nav class="flex items-center  space-x-14 my-2 py-3 bg-red-400 overflow-auto px-4 w-[100dvw]">
                       <a href={`/html/${html?.slug}`} class={`text-custom-black  px-8 rounded-sm font-bold py-1 ${url === 'html' && 'bg-gray-300 font-extrabold' }`}>HTML1</a>
                <a href={`/flutter/${flutter?.slug}`} class={`text-custom-black  px-8 rounded-sm font-bold py-1 ${url === 'flutter' && 'bg-gray-300 font-extrabold' }`}>Flutter</a>    
-       
+                   <a href={`/html/${html?.slug}`} class={`text-custom-black  px-8 rounded-sm font-bold py-1 ${url === 'html' && 'bg-gray-300 font-extrabold' }`}>HTML1</a>
+               <a href={`/flutter/${flutter?.slug}`} class={`text-custom-black  px-8 rounded-sm font-bold py-1 ${url === 'flutter' && 'bg-gray-300 font-extrabold' }`}>Flutter</a>   
+
     </nav>
 </header>
