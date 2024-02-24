@@ -1,22 +1,37 @@
 ---
 import {Image} from "astro:assets"
 import { getCollection } from "astro:content";
+import { readdirSync } from 'fs'
+
+function kebabToTitleCase(str: any) {
+  return str.split('-')
+            .map((word:any) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+}
+
 
 const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
 
-	const posts = await getCollection('html');
 
+       const directories = readdirSync("./src/content", { withFileTypes: true })
+    .filter((dirent: any) => dirent.isDirectory())
+    .map((dirent:any) => dirent.name)
 
-       const html = posts.find(post => post.data.index === 1);
-       const flutter = posts.find(post => post.data.index === 1);
+    const data: any = {}
+
+    for (const directory of directories) {
+        const posts = await getCollection(directory);
+        data[directory] = posts.find(post => post.data.index === 1)
+    }
     
 ---
 
 
 
-<header 
+<header  class="relative"
 >
-    <a href="/" class="flex justify-center items-center py-4 bg-green-200 w-[100dvw]">
+<div class=" flex justify-center">
+        <a href="/" class="flex justify-center items-center py-4 ">
         <Image
             src="https://media.istockphoto.com/id/469532554/photo/bahakapur-nepal.jpg?s=612x612&w=0&k=20&c=9RHmLtdaPTJdtzpz86DQDW98X-WrT5FaUdas6mXKEHM="
             alt="rhythm nation logo"
@@ -28,11 +43,14 @@ const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
 
         <p class="uppercase text-3xl text-zinc-900">blog</p>
     </a>
-       <nav class="flex items-center  space-x-14 my-2 py-3 bg-red-400 overflow-auto px-4 w-[100dvw]">
-                      <a href={`/html/${html?.slug}`} class={`text-custom-black  px-8 rounded-sm font-bold py-1 ${url === 'html' && 'bg-gray-300 font-extrabold' }`}>HTML1</a>
-               <a href={`/flutter/${flutter?.slug}`} class={`text-custom-black  px-8 rounded-sm font-bold py-1 ${url === 'flutter' && 'bg-gray-300 font-extrabold' }`}>Flutter</a>    
-                   <a href={`/html/${html?.slug}`} class={`text-custom-black  px-8 rounded-sm font-bold py-1 ${url === 'html' && 'bg-gray-300 font-extrabold' }`}>HTML1</a>
-               <a href={`/flutter/${flutter?.slug}`} class={`text-custom-black  px-8 rounded-sm font-bold py-1 ${url === 'flutter' && 'bg-gray-300 font-extrabold' }`}>Flutter</a>   
-
-    </nav>
+</div>
+       <nav class=" bg-custom-green mb-6">
+       <div class="flex items-center container mx-auto overflow-auto">
+         {Object.entries(data).map(([key, value]) => {
+            return (
+                <a href={`/${key}/${(value as any).slug}`} class={`text-white px-8 rounded-sm py-4 ${url === key && 'bg-custom-black font-bold'} hover:bg-custom-black`}>{kebabToTitleCase(key)}</a>
+         )           })}
+       </div>
+                     
+                  </nav>
 </header>

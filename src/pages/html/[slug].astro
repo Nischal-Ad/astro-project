@@ -4,54 +4,87 @@ import Main from '../../layouts/Main.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
+const posts = await getCollection('html');
 
-	const posts = await getCollection('html');
-
-export const getStaticPaths = async ()=>{
-
-	const posts = await getCollection('html');
-
-	const paths = posts.map((post) => {
-		return { 
-			params: { slug: post.slug },
-			props:{post,
-        slug: post.slug,
-      } 
-		}});
-		return paths;
+export const getStaticPaths = async () => {
+  const posts = await getCollection('html');
+  const paths = posts.map((post) => ({
+    params: { slug: post.slug },
+    props: {
+      post,
+      slug: post.slug,
+    },
+  }));
+  return paths;
 }
 
 type Props = {
-	post: CollectionEntry<"html">
-  slug:string
+  post: CollectionEntry<"html">
+  slug: string
 }
 
-	const {post, slug} = Astro.props;
-	const {Content} = await post.render();
-  
+const { post, slug } = Astro.props;
+const { Content } = await post.render();
+
 
 ---
 
 <Layout title={`${post.slug} - ${post.collection}`}>
-	<Main>
-		<div class='grid grid-cols-12 gap-2'>
-			<div class='lg:col-span-3 md:col-span-3 bg-gray-500 rounded-md'>
-{posts.sort((a, b) => a.data.index - b.data.index).map((post) => {
-  return (
- 
-  <div class="my-6">
-     <a class={` block mx-2 py-1 px-4 rounded-md font-semibold text-custom-black ${slug === post.slug && 'bg-red-200'}`} href= {`/${post.collection}/${post.slug}`}>{post.slug}</a>
-     </div>
-)
-  
-})}
-			</div>
+  <Main>
+    <div class="md:hidden absolute top-5">
+      <svg id="togglenav" class="w-6 h-6 text-custom-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 17 14">
+        <path d="M16 2H1a1 1 0 0 1 0-2h15a1 1 0 1 1 0 2Zm0 6H1a1 1 0 0 1 0-2h15a1 1 0 1 1 0 2Zm0 6H1a1 1 0 0 1 0-2h15a1 1 0 0 1 0 2Z" />
+      </svg>
+    </div>
+
+    <div class="md:hidden duration-700 ease-in-out transition-all transform -translate-x-full md:translate-x-0 absolute w-full z-10" id="mobilenav">
+      <div class="flex justify-between px-4  flex-col h-full w-[92dvw] overflow-auto text-center bg-custom-white">
+        {posts.sort((a, b) => a.data.index - b.data.index).map((post) => {
+          return (
+            <div class="border-b-[1px] my-2">
+              <a class={`block py-3 px-4 text-custom-black ${slug === post.slug && 'bg-custom-green font-semibold text-custom-white'}`} href={`/${post.collection}/${post.slug}`}>{post.slug}</a>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+    <script>
+let btn : any;
+let nav : any;
+
+function toggleNav() {
+  if (typeof document !== 'undefined') {
+       btn = document.getElementById('togglenav');
+    nav = document.getElementById('mobilenav');
+       btn?.addEventListener('click', (e: any) => {
+        nav?.classList.toggle('-translate-x-full');
+    });
+  }
+}
 
 
-      <div class='lg:col-span-9 md:col-span-9 col-span-12 text-justify prose prose-md relative text-md'>
-     			<Content/>
-			</div>
-		</div>
-	</Main>
+
+toggleNav();
+
+document.addEventListener("astro:after-swap", toggleNav)
+
+    </script>
+
+    <div class='md:grid grid-cols-12 gap-2'>
+      <div class='md:col-span-3 bg-custom-white rounded hidden md:block'>
+        {posts.sort((a, b) => a.data.index - b.data.index).map((post) => {
+          return (
+            <div class="border-b-[1px] my-2">
+              <a class={`block py-3 px-4 text-custom-black ${slug === post.slug && 'bg-custom-green font-semibold text-custom-white'}`} href={`/${post.collection}/${post.slug}`}>{post.slug}</a>
+            </div>
+          );
+        })}
+      </div>
+
+      <div class='w-full p-6 rounded shadow-lg lg:col-span-9 md:col-span-9 col-span-12 text-justify prose prose-md relative text-md'>
+        <Content/>
+      </div>
+    </div>
+  </Main>
 </Layout>
-

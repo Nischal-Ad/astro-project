@@ -26,10 +26,13 @@ const { title , description="a community for programmers where you can find blog
 		<title>{`${title} | project name`}</title>
 		
 	</head>
- <body class="min-h-screen grid grid-rows-[auto,1fr,auto] font-Montserrat">
-         <Header />
+ <body class="mx-auto font-Montserrat">
+<main>
+	         <Header />
         <slot />
         <Footer />
+</main>
     </body>
+
 </html>
 
