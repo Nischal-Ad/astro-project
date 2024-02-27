@@ -1,29 +1,16 @@
 ---
 import {Image} from "astro:assets"
 import { getCollection } from "astro:content";
-import fs from 'fs-extra'
-
-function kebabToTitleCase(str: any) {
-  return str.split('-')
-            .map((word:any) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(' ');
-}
-
 
 const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
 
+	const posts = await getCollection('html');
 
-       const directories = fs.readdirSync("./src/content", { withFileTypes: true })
-    .filter((dirent: any) => dirent.isDirectory())
-    .map((dirent:any) => dirent.name)
 
-    const data: any = {}
-
-    for (const directory of directories) {
-        const posts = await getCollection(directory);
-        data[directory] = posts.find((post:any) => post.data.index === 1)
-    }
+       const html = posts.find(post => post.data.index === 1);
+       const flutter = posts.find(post => post.data.index === 1);
     
+
 ---
 
 
@@ -46,10 +33,9 @@ const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
 </div>
        <nav class=" bg-custom-green mb-6">
        <div class="flex items-center container mx-auto overflow-auto">
-         {Object.entries(data).map(([key, value]) => {
-            return (
-                <a href={`/${key}/${(value as any).slug}`} class={`text-white px-8 rounded-sm py-4 ${url === key && 'bg-custom-black font-bold'} hover:bg-custom-black`}>{kebabToTitleCase(key)}</a>
-         )           })}
+                <a href={`/html/${html?.slug}`} class={`text-white px-8 rounded-sm py-4 ${url === html && 'bg-custom-black font-bold'} hover:bg-custom-black`}>HTML</a>
+                <a href={`/flutter/${flutter?.slug}`} class={`text-white px-8 rounded-sm py-4 ${url === flutter && 'bg-custom-black font-bold'} hover:bg-custom-black`}>Flutter</a>
+       
        </div>
                      
                   </nav>
