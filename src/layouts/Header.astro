@@ -4,11 +4,12 @@ import { getCollection } from "astro:content";
 
 const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
 
-	const posts = await getCollection('html');
+	const htmlPosts = await getCollection('html');
+	const flutterPosts = await getCollection('flutter');
 
 
-       const html = posts.find(post => post.data.index === 1);
-       const flutter = posts.find(post => post.data.index === 1);
+       const html = htmlPosts.find(post => post.data.index === 1);
+       const flutter = flutterPosts.find(post => post.data.index === 1);
     
 
 ---
