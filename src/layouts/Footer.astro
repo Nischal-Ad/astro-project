@@ -1,7 +1,40 @@
+---
+import {Image} from "astro:assets"
+
+
+const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
+---
 
 
 <footer
-    class="bg-custom-green text-center mt-4 pt-10 pb-4 px-5 max-sm:pb-3 max-sm:pt-8"
+    class="bg-custom-green text-center  p-4"
 >
+<div class="flex md:justify-between items-center flex-col md:flex-row mx-4 font-medium text-custom-white">
+       <a href="/" class={`flex justify-center items-center py-4`}>
+        <Image
+            src="https://media.istockphoto.com/id/469532554/photo/bahakapur-nepal.jpg?s=612x612&w=0&k=20&c=9RHmLtdaPTJdtzpz86DQDW98X-WrT5FaUdas6mXKEHM="
+            alt="rhythm nation logo"
+            width={64}
+            height={64}
+            format="webp"
+            class="w-16"
+        />
+
+        <p class="uppercase text-3xl">blog</p>
+    </a>
+    <div class="flex space-y-6 md:space-y-0 mb-6 md:mb-0 md:space-x-6 flex-col md:flex-row ">
+    <a href="/about" class={`${url === 'about' && 'underline underline-offset-[6px] decoration-2 font-bold'} ease-in-out duration-300 hover:font-bold `}>
+        About Us
+    </a>
+    <a href="/contact" class={`${url === 'contact' && 'underline underline-offset-[6px] decoration-2 font-bold'} ease-in-out duration-300 hover:font-bold`}>
+        Contact Us
+    </a>
+    <a href="/privacy" class={`${url === 'privacy' && 'underline underline-offset-[6px] decoration-2 font-bold'} ease-in-out duration-300 hover:font-bold`}>
+        Privacy Policy
+    </a>
+</div>
+</div>
     <p class="text-custom-white">Copyright 2023. Rhythm Nation</p>
+
+
 </footer>

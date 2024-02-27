@@ -32,7 +32,7 @@ const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
         <p class="uppercase text-3xl text-zinc-900">blog</p>
     </a>
 </div>
-       <nav class=" bg-custom-green mb-6">
+       <nav class=" bg-custom-green ">
        <div class="flex items-center container mx-auto overflow-auto">
                 <a href={`/html/${html?.slug}`} class={`text-white px-8 rounded-sm py-4 ${url === 'html' && 'bg-custom-black font-bold'} hover:bg-custom-black`}>HTML</a>
                 <a href={`/flutter/${flutter?.slug}`} class={`text-white px-8 rounded-sm py-4 ${url === 'flutter' && 'bg-custom-black font-bold'} hover:bg-custom-black`}>Flutter</a>
