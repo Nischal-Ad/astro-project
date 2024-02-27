@@ -1,7 +1,7 @@
 ---
 import {Image} from "astro:assets"
 import { getCollection } from "astro:content";
-import {readdirSync} from 'fs'
+import fs from 'fs-extra'
 
 function kebabToTitleCase(str: any) {
   return str.split('-')
@@ -13,7 +13,7 @@ function kebabToTitleCase(str: any) {
 const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
 
 
-       const directories = readdirSync("./src/content", { withFileTypes: true })
+       const directories = fs.readdirSync("./src/content", { withFileTypes: true })
     .filter((dirent: any) => dirent.isDirectory())
     .map((dirent:any) => dirent.name)
 
