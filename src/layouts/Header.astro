@@ -21,7 +21,7 @@ const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
 
     for (const directory of directories) {
         const posts = await getCollection(directory);
-        data[directory] = posts.find(post => post.data.index === 1)
+        data[directory] = posts.find((post:any) => post.data.index === 1)
     }
     
 ---
