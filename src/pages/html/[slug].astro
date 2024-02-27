@@ -57,7 +57,7 @@ function toggleNav() {
   if (typeof document !== 'undefined') {
        btn = document.getElementById('togglenav');
     nav = document.getElementById('mobilenav');
-       btn?.addEventListener('click', (e: any) => {
+       btn?.addEventListener('click', () => {
         nav?.classList.toggle('-translate-x-full');
     });
   }
