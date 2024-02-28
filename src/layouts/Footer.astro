@@ -7,8 +7,9 @@ const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
 
 
 <footer
-    class="bg-custom-green text-center  p-4"
+    class="bg-custom-green text-center "
 >
+<div class="mx-auto container p-4">
 <div class="flex md:justify-between items-center flex-col md:flex-row mx-4 font-medium text-custom-white">
        <a href="/" class={`flex justify-center items-center py-4`}>
         <Image
@@ -35,6 +36,8 @@ const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
 </div>
 </div>
     <p class="text-custom-white">Copyright 2023. astroproject</p>
+
+</div>
 
 
 </footer>
