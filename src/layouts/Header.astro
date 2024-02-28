@@ -18,8 +18,8 @@ const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
 
 <header  class="relative"
 >
-<div class=" flex justify-center">
-        <a href="/" class="flex justify-center items-center py-4 ">
+<div class=" flex justify-between items-center container mx-auto">
+        <a href="/" class="flex justify-center items-center py-4 md:ml-2 ml-[50px]">
         <Image
             src="https://media.istockphoto.com/id/469532554/photo/bahakapur-nepal.jpg?s=612x612&w=0&k=20&c=9RHmLtdaPTJdtzpz86DQDW98X-WrT5FaUdas6mXKEHM="
             alt="rhythm nation logo"
@@ -31,6 +31,10 @@ const url = Astro.url.pathname ? Astro.url.pathname.split('/')[1] : undefined;
 
         <p class="uppercase text-3xl text-zinc-900">blog</p>
     </a>
+
+    <div>
+        <button class="bg-custom-green px-4 py-2 rounded text-custom-white font-medium mr-2">Custom API</button>
+    </div>
 </div>
        <nav class=" bg-custom-green ">
        <div class="flex items-center container mx-auto overflow-auto">
