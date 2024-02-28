@@ -5,7 +5,7 @@ export default {
         extend: {
             colors: {
                 "custom-black": "#031926",
-                "custom-green": "#459D30",
+                "custom-green": "#222222",
                 "custom-white": "#F4F4F4",
             },
             fontFamily: {
